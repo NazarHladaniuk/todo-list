@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    TODO list
+    <a href="#" class="btn btn-primary link-to-page">
+      Add task
+    </a>
+  </h1>
+  {% if task_list %}
+    <div class="ml-3">
+      {% for task in task_list %}
+          <hr>
+          <h5><strong>{{ task.content }}</strong></h5>
+          <p>Created: {{ task.created_datetime }} Deadline: {{ task.deadline_datetime }}</p>
+          <p class="text-muted"><strong>Tags:</strong>
+            {% for tag in task.tags.all %}
+              {{ tag.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+      {% empty %}
+        <p>No tasks!</p>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>There are no tasks in list</p>
+  {% endif %}
+{% endblock %}
