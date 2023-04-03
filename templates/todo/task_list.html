@@ -11,11 +11,23 @@
     <div class="ml-3">
       {% for task in task_list %}
           <hr>
-          <h5><strong>{{ task.content }}</strong></h5>
+          <h5><strong>{{ task.content }}</strong>
+            {% if task.is_done %}
+              <a href="{% url 'todo:task-toggle' pk=task.pk %}" class="btn btn-secondary">Undo</a>
+            {% else %}
+              <a href="{% url 'todo:task-toggle' pk=task.pk %}" class="btn btn-success">Complete</a>
+            {% endif %}
+
+          </h5>
           <p>
             Status: <strong class="{% if task.is_done %}text-success{% else %}text-danger{% endif %}">{% if task.is_done %}Done{% else %}Not done{% endif %}</strong>
           </p>
-          <p>Created: {{ task.created_datetime }} Deadline: {{ task.deadline_datetime }}</p>
+          <p>
+            Created: {{ task.created_datetime }}
+            {% if task.deadline_datetime %}
+              Deadline: {{ task.deadline_datetime }}
+            {% endif %}
+          </p>
           <p class="text-muted"><strong>Tags:</strong>
             {% for tag in task.tags.all %}
               {{ tag.name }}{% if not forloop.last %}, {% endif %}

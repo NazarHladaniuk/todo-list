@@ -9,6 +9,7 @@ from .views import (
     TaskCreateView,
     TaskUpdateView,
     TaskDeleteView,
+    compleat_or_undo_task,
 )
 
 urlpatterns = [
@@ -51,6 +52,11 @@ urlpatterns = [
         "tasks/<int:pk>/delete/",
         TaskDeleteView.as_view(),
         name="task-delete",
+    ),
+    path(
+        "tasks/<int:pk>/toggle/",
+        compleat_or_undo_task,
+        name="task-toggle"
     ),
 ]
 
