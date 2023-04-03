@@ -3,6 +3,7 @@ from django.contrib import admin
 from todo.models import Tag, Task
 
 
+@admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     list_display = ["content", "created_datetime", "deadline_datetime", "is_done"]
     list_filter = ["tags"]
@@ -10,4 +11,3 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Tag)
-admin.site.register(Task, TaskAdmin)
